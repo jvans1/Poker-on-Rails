@@ -1,9 +1,0 @@
-console history:
-
-  cashgame_ids = Gametype.find_all_by_istourney(false).map{ |g| g.id}
-  aces = []
-  cashgame_ids.each do |id|
-    Handhistory.find_by_holecardvalue_id(1).each do |hand|
-      aces.push(hand.find_by_cashgame_id(id))
-    end
-  end  
