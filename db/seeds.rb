@@ -5,3 +5,21 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+# Hand.all.each do |h|
+#    Stat.create(:hand => h.holecardstring.strip)
+# end
+
+cashgame_ids = Gametype.find_all_by_istourney(false).map{ |g| g.id}
+
+Hand.all.each do |h|
+  if hand =  Handhistory.find_all_by_holecardvalue_id(h.id)
+    h.count = hand.select{|aa| cashgame_ids.include?(aa.gametype_id)}.count 
+    h.save
+  end
+end
+
+
+
+
