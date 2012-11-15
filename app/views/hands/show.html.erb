@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+<THEAD>
+     <TR>Texas Holdem Hands</TR>
+</THEAD>
+<% @hands.each do |hand| %>
+<TBODY>
+     <TR><%=hand.holecardstring%></TR>
+     <TR><%=hand.count%></TR>
+</TBODY>
+<%end%>
+<div>
+<%= link_to 'Back', hands_path %>
