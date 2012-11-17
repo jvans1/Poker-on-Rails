@@ -1,0 +1,74 @@
+Terminal runs:
+
+Handhistory.select("handtimestamp, SUM(bbwon) as BB").group("handtimestamp")
+
+  years =Handhistory.select("sum(bbwon) as bigblinds").group("year") 
+    years = year.map{|y| y.bbwon.to_i}.sum 
+    years.each do |year|
+      puts year.bigblind
+    end
+
+
+days = Handhistory.select("day, month, year, sum(bbwon) as bigblinds").group("day, month, year")
+
+months = Handhistory.select("month, year, sum(netamountwon) as bigblinds").group("month, year")
+  preblackfriday = months.select{|m| m.year <2011}.map { |||  }
+  preblackfriday.map{ |m| m.bigblinds.to_i}.sum
+
+## Winnings per time unit
+def winnings_per_unit_time(unit)
+  winning  = 0
+  losing = 0
+  unit.each do |unit|
+    if day.bigblinds.to_i>0
+      winning +=1
+    elsif day.bigblinds.to_i <0
+      losing +=1
+    end
+  end
+
+
+## Winnings by position
+def winnings_by_position
+  positions = Handhistory.select("positiontype_id, sum(netamountwon) as winnings").group("positiontype_id")
+  positions.sort_by! { |pos| pos.positiontype_id}
+  money = 0
+  positions.each do |pos|
+  money += pos.winnings.to_i/100
+
+    puts "I made: "+(pos.winnings.to_i/100).to_s + " from position " +pos.positiontype_id.to_s
+  end 
+    puts money
+end
+
+def vpip_by_position
+  positions ={:small_blind=>0, :big_blind =>0, :utg=>0, :utg2=>0, :co =>0, :btn =>0}
+  Handhistory.find_each(:batch_size=>100000) do |hand|
+    case hand.positiontype_id
+    when 0 positions[:small_blind] +=1
+    when 1 positions[:big_blind] +=1
+    when 2 positions[:utg] +=1
+    when 3 positions[:utg2] +=1
+    when 4 positions[:co] +=1
+    when 5 positions[:btn] +=1
+        
+    end
+  puts positions.inspects
+end
+
+
+
+
+  # positions.each do |pos|
+  # money += pos.winnings.to_i/100
+
+  #   puts "I made: "+(pos.winnings.to_i/100).to_s + " from position " +pos.positiontype_id.to_s
+  # end 
+end
+
+
+
+ def find_winnings_group(date_type)
+    date_type = Handhistory.select("month, year, sum(netamountwon) as winnings").group("month, year") 
+    date_type.map{|y| y.winnings.to_i}.sum 
+  end

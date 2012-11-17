@@ -1,4 +1,24 @@
 Ideas
-#Winnings Per day/ week/month/year => Can get all info from playerhandscashkeycolumns_hero
-#Winnings per types of hands playerhandscashkeycolumns_hero
-#Expected Value
+  #Winnings Per day/ week/month/year => Can get all info from playerhandscashkeycolumns_hero
+
+  #Winnings per types of hands playerhandscashkeycolumns_hero
+  #Expected Value
+  #derivative of hand(groups of) winnings over time
+
+
+#Changing Class names
+#config Database
+#Postgres Disconnect and for_each(:batch) method
+#workign with datetime
+
+#Explain Holdem Manager/database
+#Intro:
+  Poker Player -pic of multitabling
+1. Do you always win/how much luck is involved?(EV)
+# %winning hands, days, months, years
+# 
+2. w
+2. Lesson: Position is everything
+  Winnings per position => % hands played per position
+  Handhistory.select("sum(netamountwon) as winnings").group("positiontype_id")
+3. Winnings per player/how many people i've won from

@@ -1,2 +1,0 @@
-class HandController < ApplicationController
-end

@@ -1,0 +1,19 @@
+Terminal runs:
+
+Handhistory.select("handtimestamp, SUM(bbwon) as BB").group("handtimestamp")
+
+years =Handhistory.select("sum(bbwon) as bigblinds").group("year") // This works
+    year.map{|y| y.bbwon.to_i}.sum = Total winnings in big blinds
+
+days = Handhistory.select("day, month, year, sum(bbwon) as bigblinds").group("day, month, year")
+
+#Winnings grouped by month
+months = Handhistory.select("month, year, sum(netamountwon) as bigblinds").group("month, year")
+preblackfriday = months.select{|m| m.year <2011}
+preblackfriday.map{ |m| m.bigblinds.to_i}.sum
+
+# Winnings by position
+positions = Handhistory.select("positiontype_id, sum(netamountwon) as winnings").group("positiontype_id")
+positions.each do |pos|
+  "I made: "+pos.winnings.to_s " from position " +pos.positiontype_id.to_s
+  end

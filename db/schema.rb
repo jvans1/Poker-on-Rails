@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115024245) do
+ActiveRecord::Schema.define(:version => 20121117154354) do
 
   create_table "actiontypes", :id => false, :force => true do |t|
     t.integer "actiontype_id",              :null => false
@@ -635,6 +635,8 @@ ActiveRecord::Schema.define(:version => 20121115024245) do
     t.string  "holecardstring", :limit => 6
     t.integer "count"
     t.integer "winnings"
+    t.integer "bbwinings"
+    t.integer "evbb"
   end
 
   add_index "holecards", ["holecard_id"], :name => "index_holecards_on_holecard_id"
@@ -754,6 +756,11 @@ ActiveRecord::Schema.define(:version => 20121115024245) do
     t.integer  "riverplayeractiontype_id",   :limit => 2, :null => false
     t.integer  "holecard3int",               :limit => 2
     t.integer  "holecard4int",               :limit => 2
+    t.integer  "bbwon"
+    t.integer  "evnetwon"
+    t.integer  "day"
+    t.integer  "month"
+    t.integer  "year"
   end
 
   add_index "playerhandscashkeycolumns_hero", ["holecardvalue_id"], :name => "index_playerhandscashkeycolumns_hero_on_holecardvalue_id"
@@ -1132,6 +1139,7 @@ ActiveRecord::Schema.define(:version => 20121115024245) do
   end
 
   add_index "playervsplayer_hero", ["player_id", "villain_id"], :name => "playervsplayer_hero_idx1"
+  add_index "playervsplayer_hero", ["pokerhand_id"], :name => "index_playervsplayer_hero_on_pokerhand_id"
   add_index "playervsplayer_hero", ["pokerhand_id"], :name => "playervsplayer_hero_idx2"
 
   create_table "pokerhands", :primary_key => "pokerhand_id", :force => true do |t|
