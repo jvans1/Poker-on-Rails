@@ -11,8 +11,13 @@ Handhistory.select("handtimestamp, SUM(bbwon) as BB").group("handtimestamp")
 
 days = Handhistory.select("day, month, year, sum(bbwon) as bigblinds").group("day, month, year")
 
-months = Handhistory.select("month, year, sum(netamountwon) as bigblinds").group("month, year")
-  preblackfriday = months.select{|m| m.year <2011}.map { |||  }
+def filter_prebf(hand)
+  if (hand.year==2011  && hand.month >5) || hand.year ==2012
+    next
+  else
+    hand
+  end
+end
   preblackfriday.map{ |m| m.bigblinds.to_i}.sum
 
 ## Winnings per time unit

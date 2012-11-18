@@ -1,48 +1,91 @@
 class Handhistory < ActiveRecord::Base
+
+
   #attr_accessor :handtimestamp, :positiontype_id, :holecardvalue_id, :netamountwon
   set_table_name "playerhandscashkeycolumns_hero"
   set_primary_key :pokerhand_id
-  has_one :hand, :class_name => "Hand", :foreign_key => "holecardvalue_id"
-  WINNING_GROUPS ={:winning_hands=>0, :hands=>0, :winning_days=>0 , :days =>0,
-                  :winning_months=>0, :months=>0, :winning_years=>0, :years=>0}
-  DATE_INDEX={:year=> 0, :month=>1, :day=>2}
-  # def self.group_by_type(date)
-  #   case date 
-  #   when "year"
-  #    type = "year"
-  #   when "month"
-  #    type = "year, month"
-  #   when "day"
-  #    type = "day"
-  #   end
-  #     dates = type.split(',')
-  #     date_type = Handhistory.select("#{type}, sum(netamountwon) as winnings").group("#{type}") 
-  #     date_type.map{|y| y.winnings.to_i}.sum 
-  #     date_type.each do |d|
-  #       dates.each do |dt|
-  #       puts d.send(DATE_INDEX[:year]).to_s + ": " + (d.winnings.to_i/100).to_s if dates.length ==1
-  #       puts "Year: " + d.send(DATE_INDEX[:year]).to_s + " Month: " +d.send(DATE_INDEX[:month]) if dates.length ==2
-  #       puts "Year: " + d.send(DATE_INDEX[:year]).to_s + " Month: " +d.send(DATE_INDEX[:month])+" Day: "+ d.send(DATE_INDEX[:day]) if dates.length ==3
-  #     end
-  #   end
-  # end
 
-  def self.find_winnings_group(date_type)
-    Handhistory.select("#{date_type}, sum(netamountwon) as winnings").group("#{date_type}") 
+
+
+  has_one :hand, :class_name => "Hand", :foreign_key => "holecardvalue_id"
+
+  def self.group_hands(date_type, filter = "off")
+    pre_black_friday=[]
+    all_hands = Handhistory.select("#{date_type}, sum(netamountwon) as winnings").group("#{date_type}") 
+    if filter.downcase.strip = "on"
+      all_hands.find_each(:batch_size=>100000) do |hand|
+        next if hand.heads_up?
+        pre_black_friday.push(hand) if hand.pre_black_friday?
+      end
+    else
+      all_hands
+    end
   end
-  def self.winnings_percent(type)
+  def self.winnings_percent(group)
     winning  = 0
     losing = 0
-
-    group.each do |unit|
-      if unit.winnings.to_i>0
+    group.each do |hands|
+      if hands.winnings.to_i>0
         winning +=1
-      elsif unit.winnings.to_i <0
+      elsif hands.winnings.to_i <0
         losing +=1
       end
     end
     puts "winning" +  winning.to_s+ " losing " +  losing.to_s
     winning_percent = (winning*100)/((losing+winning))
     puts "I have won  #{winning_percent} percent of #{type}s"
+  end
+
+
+  def self.vpip_by_position
+    (filter = "off")
+    positions ={:small_blind=>0, :big_blind =>0, :utg=>0, :utg1=>0, :co =>0, :btn =>0, :sbvpip=>0, :bbvpip=>0, :utgvpip=>0, :utg1vpip=>0, :covpip=>0, :btnvpip=>0}
+    vpip = Handhistory.select("positiontype_id, numberofplayers, didvpip")
+    vpip.each do |hand|
+      next if filter.downcase == "on" && hand.heads_up?
+        case hand.positiontype_id
+        when 0 
+          positions[:small_blind] +=1
+          positions[:sbvpip] +=1 if hand.didvpip
+        when 1
+          positions[:big_blind] +=1
+          positions[:bbvpip] +=1 if hand.didvpip
+        when 2 
+          positions[:utg] +=1
+          positions[:utgvpip] +=1 if hand.didvpip
+        when 3
+          positions[:utg1] +=1
+          positions[:utg1vpip] +=1 if hand.didvpip
+        when 4
+          positions[:co] +=1
+          positions[:covpip] +=1 if hand.didvpip
+        when 5
+          positions[:btn] +=1
+          positions[:btnvpip] +=1 if hand.didvpip
+        end
+      end
+      puts positions[:sbvpip].to_f/positions[:small_blind].to_f
+      puts positions[:bbvpip].to_f/positions[:big_blind].to_f
+      puts positions[:utgvpip].to_f/positions[:utg].to_f
+      puts positions[:utg1vpip].to_f/positions[:utg1].to_f
+      puts positions[:covpip].to_f/positions[:co].to_f
+      puts positions[:btnvpip].to_f/positions[:btn].to_f
+    end
+  def self.winnings_by_position
+    positions = Handhistory.select("positiontype_id, sum(netamountwon) as winnings").group("positiontype_id")
+    positions.sort_by! { |pos| pos.positiontype_id}
+    money = 0
+    positions.each do |pos|
+      money += pos.winnings.to_i/100
+      puts "I made: $"+(pos.winnings.to_i/100).to_s + " from position " +pos.positiontype_id.to_s
+    end 
+      puts "Total Profit : $" + money.to_s
+  end
+
+  def pre_black_friday?
+    true if self.year < 2011 || (self.month <5 && self.year ==2011)
+  end
+  def heads_up?
+    true if self.numberofplayers ==2
   end
 end

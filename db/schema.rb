@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117154354) do
+ActiveRecord::Schema.define(:version => 20121117220256) do
 
   create_table "actiontypes", :id => false, :force => true do |t|
     t.integer "actiontype_id",              :null => false
@@ -768,6 +768,7 @@ ActiveRecord::Schema.define(:version => 20121117154354) do
   add_index "playerhandscashkeycolumns_hero", ["player_id", "handtimestamp"], :name => "playerhandscashkeycolumns_hero_idx1"
   add_index "playerhandscashkeycolumns_hero", ["pokerhand_id"], :name => "index_playerhandscashkeycolumns_hero_on_pokerhand_id"
   add_index "playerhandscashkeycolumns_hero", ["pokerhand_id"], :name => "playerhandscashkeycolumns_hero_idx2"
+  add_index "playerhandscashkeycolumns_hero", ["positiontype_id"], :name => "index_playerhandscashkeycolumns_hero_on_positiontype_id"
 
   create_table "playerhandscashmisc", :id => false, :force => true do |t|
     t.integer "playerhand_id",                                        :null => false
