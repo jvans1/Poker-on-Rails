@@ -7,13 +7,15 @@ years =Handhistory.select("sum(bbwon) as bigblinds").group("year") // This works
 
 days = Handhistory.select("day, month, year, sum(bbwon) as bigblinds").group("day, month, year")
 
-#Winnings grouped by month
+
+hh.sort{ |a,b| a.winnings.to_i <=> b.winnings.to_i}
+
+Handhistory.group_hands("year, month") 
+  hh.sort!{ |a,b| a.winnings.to_i <=> b.winnings.to_i }
+
+#Winnings grouped by hand/day/month/year
 months = Handhistory.select("month, year, sum(netamountwon) as bigblinds").group("month, year")
 preblackfriday = months.select{|m| m.year <2011}
 preblackfriday.map{ |m| m.bigblinds.to_i}.sum
 
 # Winnings by position
-positions = Handhistory.select("positiontype_id, sum(netamountwon) as winnings").group("positiontype_id")
-positions.each do |pos|
-  "I made: "+pos.winnings.to_s " from position " +pos.positiontype_id.to_s
-  end

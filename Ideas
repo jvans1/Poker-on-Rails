@@ -5,6 +5,22 @@ Ideas
   #Expected Value
   #derivative of hand(groups of) winnings over time
 
+Presentation Layout
+  1. About me
+  2. Background
+  3. Explain Holdem Manager > postgres
+  4. Extracting the HEM database
+  5. Wrapping the database
+  6. Issues I ran into
+    Timing out find_each(:batch_size)
+  7. Do you always win?
+    %hands/days/months/years
+
+
+  x. Position is everything
+    winnings by position
+    %hands played by position
+   
 
 #Changing Class names
 #config Database

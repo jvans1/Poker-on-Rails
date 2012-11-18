@@ -9,31 +9,23 @@ class Handhistory < ActiveRecord::Base
 
   has_one :hand, :class_name => "Hand", :foreign_key => "holecardvalue_id"
 
-  def self.group_hands(date_type, filter = "off")
-    pre_black_friday=[]
-    all_hands = Handhistory.select("#{date_type}, sum(netamountwon) as winnings").group("#{date_type}") 
-    if filter.downcase.strip = "on"
-      all_hands.find_each(:batch_size=>100000) do |hand|
-        next if hand.heads_up?
-        pre_black_friday.push(hand) if hand.pre_black_friday?
-      end
-    else
-      all_hands
-    end
+  def self.group_hands(date_type)
+    Handhistory.select("#{date_type}, sum(netamountwon) as winnings").group("#{date_type}") 
   end
+
+
   def self.winnings_percent(group)
     winning  = 0
     losing = 0
-    group.each do |hands|
-      if hands.winnings.to_i>0
+    group.each do |item|
+      if item.winnings.to_i>0
         winning +=1
-      elsif hands.winnings.to_i <0
+      elsif item.winnings.to_i <0
         losing +=1
       end
     end
-    puts "winning" +  winning.to_s+ " losing " +  losing.to_s
     winning_percent = (winning*100)/((losing+winning))
-    puts "I have won  #{winning_percent} percent of #{type}s"
+    puts "#{winning_percent} percent"
   end
 
 
@@ -81,7 +73,6 @@ class Handhistory < ActiveRecord::Base
     end 
       puts "Total Profit : $" + money.to_s
   end
-
   def pre_black_friday?
     true if self.year < 2011 || (self.month <5 && self.year ==2011)
   end

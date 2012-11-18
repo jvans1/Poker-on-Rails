@@ -2,15 +2,20 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+
+
 jQuery ->
   Morris.Line
-    element: 'holecards'
+    element: 'annual'
     data: [
-      {y: '1', a:14}
-      {y: '2', a: 21}
-      {y: '3', a: 31}
-      {y: '4', a: 45x}
+      {y: '2012', a: 100}
+      {y: '2011', a: 75}
+      {y: '2010', a: 50}
+      {y: '2009', a: 75}
+      {y: '2008', a: 50}
+      {y: '2007', a: 75}
+      {y: '2006', a: 100}
     ]
-    xkeys: 'y'
+    xkey: 'y'
     ykeys: ['a']
-    labels:['Series A']
+    labels: ['Series a']
