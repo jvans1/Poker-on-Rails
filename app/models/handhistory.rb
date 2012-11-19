@@ -12,12 +12,16 @@ class Handhistory < ActiveRecord::Base
   def self.group_hands(date_type)
     Handhistory.select("#{date_type}, sum(netamountwon) as winnings").group("#{date_type}") 
   end
+  def self.winnings_over_days
+    winnings_per_day = Handhistory.select("day, sum(netamountwon) as winnings").group("day").map{|h| h.winnings.to_i/100.0}
+    accumulated_winnings_day = winnings_per_day.each_with_index.map{|n, index| winnings_per_day.take(index+1).sum}
+  end
 
   # def self.winnings_on_day(day)
   #   select("sum(bbwon) as winnings").where("day = ?", day ).first.winnings.to_i/100 
   # end
 
-  def self.winnings_on_day(date)
+  def self.winnings_by_day(date)
     date_type = Handhistory.select("day, sum(netamountwon) as winnings").group(date) 
     date_type.map{|y| y.winnings.to_i/100}
   end
