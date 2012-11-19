@@ -119,4 +119,11 @@ def add_day_month_year_columns
   end
 end
 
+def handtimestamp_to_date
+  Handhistory.find_each(:batch_size=> 100000) do |hand|
+    hand.day = hand.handtimestamp.to_date 
+    hand.save
+  end
+end
+
 

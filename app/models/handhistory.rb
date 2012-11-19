@@ -13,9 +13,13 @@ class Handhistory < ActiveRecord::Base
     Handhistory.select("#{date_type}, sum(netamountwon) as winnings").group("#{date_type}") 
   end
 
-  def self.winnings_on_day(day)
-    select("sum(netamountwon) as winnings").where("year = ?", day.year ).first.winnings.to_i/100 
-    # select("sum(netamountwon) as winnings").group("year = ?", day.year)
+  # def self.winnings_on_day(day)
+  #   select("sum(bbwon) as winnings").where("day = ?", day ).first.winnings.to_i/100 
+  # end
+
+  def self.winnings_on_day(date)
+    date_type = Handhistory.select("day, sum(netamountwon) as winnings").group(date) 
+    date_type.map{|y| y.winnings.to_i/100}
   end
 
   def self.winnings_percent(group)

@@ -19,3 +19,8 @@ preblackfriday = months.select{|m| m.year <2011}
 preblackfriday.map{ |m| m.bigblinds.to_i}.sum
 
 # Winnings by position
+
+
+b = [2,4,8]
+
+b.each_with_index.map{|n, index| b.take(index+1).sum}

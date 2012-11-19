@@ -71,9 +71,21 @@ end
   # end 
 end
 
+def add_up_winnings_per_hand(array)
+  winnings_sum =[]
+  array.each_with_index do |netwon, index|
+    
+  end
+end
 
 
  def find_winnings_group(date_type)
-    date_type = Handhistory.select("month, year, sum(netamountwon) as winnings").group("month, year") 
-    date_type.map{|y| y.winnings.to_i}.sum 
-  end
+    date_type = Handhistory.select("day, sum(netamountwon) as winnings").group("day") 
+  date_type.map{|y| y.winnings.to_i}
+end
+
+def self.winnings_on_day(day)
+  Handhistory.find_each(:batch_size=>100000)) |hand|
+     
+end
+

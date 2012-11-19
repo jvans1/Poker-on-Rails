@@ -1,7 +1,67 @@
 <p id="notice"><%= notice %></p>
 
 
-<script type="text/javascript" charset="utf-8"> </script>
+
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+    var chart;
+    chart = new Highcharts.Chart({
+      chart: {
+          renderTo: 'holecards',
+          type: 'column'
+      },
+      title: {
+          text: 'Monthly Average Rainfall'
+      },
+      subtitle: {
+          text: 'Source: WorldClimate.com'
+      },
+      xAxis: {
+          categories: [
+              'Hands',
+              'Days',
+              'Months',
+              'Years'
+          ]
+      },
+      yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+              text: 'Winning Frequency'
+          }
+      },
+      legend: {
+          layout: 'vertical',
+          backgroundColor: '#FFFFFF',
+          align: 'left',
+          verticalAlign: 'top',
+          x: 100,
+          y: 100,
+          floating: true,
+          shadow: true
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+                  this.x +': '+ this.y +' mm';
+          }
+      },
+      plotOptions: {
+          column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+          }
+      },
+          series: [{
+              name: "Winning Frequency",
+              data: [25, 53, 73,100 ]
+
+      }]
+    });    
+})
+ </script>
 
 <div id='holecards' style = "width:560px; height:300px"></div>
 <THEAD>

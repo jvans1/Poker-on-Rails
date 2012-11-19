@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117220256) do
+ActiveRecord::Schema.define(:version => 20121119122102) do
 
   create_table "actiontypes", :id => false, :force => true do |t|
     t.integer "actiontype_id",              :null => false
@@ -758,9 +758,9 @@ ActiveRecord::Schema.define(:version => 20121117220256) do
     t.integer  "holecard4int",               :limit => 2
     t.integer  "bbwon"
     t.integer  "evnetwon"
-    t.integer  "day"
     t.integer  "month"
     t.integer  "year"
+    t.date     "day"
   end
 
   add_index "playerhandscashkeycolumns_hero", ["holecardvalue_id"], :name => "index_playerhandscashkeycolumns_hero_on_holecardvalue_id"
