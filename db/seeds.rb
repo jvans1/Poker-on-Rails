@@ -15,16 +15,7 @@ def bigblind(id)
 end
 
 
-# Hand.all.each do |h|
-#    Stat.create(:hand => h.holecardstring.strip)
-# end
-
-# cashgame_ids = Gametype.find_all_by_istourney(false).map{ |g| g.id}
-
-# Hand.all.each do |h| 
-#   h.count = Handhistory.find_all_by_holecardvalue_id(h.id).select{|aa| cashgame_ids.include?(aa.gametype_id)}.count 
-#   h.save
-# end
+#cashgame_ids = Gametype.find_all_by_istourney(false).map{ |g| g.id}
 
 # aces_winnings = Handhistory.find_all_by_holecardvalue_id(1).map{|h| h.netamountwon} 
 
@@ -65,7 +56,7 @@ def add_evbb_to_hand_table
       if a.evbb.nil?
         0
       else
-        a.evbb
+        a.bbwon 
       end
     end
   h.evbb = hand_winnings.sum 
@@ -127,3 +118,5 @@ def add_day_month_year_columns
     hand.save
   end
 end
+
+

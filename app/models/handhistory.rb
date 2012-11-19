@@ -13,6 +13,10 @@ class Handhistory < ActiveRecord::Base
     Handhistory.select("#{date_type}, sum(netamountwon) as winnings").group("#{date_type}") 
   end
 
+  def self.winnings_on_day(day)
+    select("sum(netamountwon) as winnings").where("year = ?", day.year ).first.winnings.to_i/100 
+    # select("sum(netamountwon) as winnings").group("year = ?", day.year)
+  end
 
   def self.winnings_percent(group)
     winning  = 0
@@ -27,8 +31,6 @@ class Handhistory < ActiveRecord::Base
     winning_percent = (winning*100)/((losing+winning))
     puts "#{winning_percent} percent"
   end
-
-
   def self.vpip_by_position
     (filter = "off")
     positions ={:small_blind=>0, :big_blind =>0, :utg=>0, :utg1=>0, :co =>0, :btn =>0, :sbvpip=>0, :bbvpip=>0, :utgvpip=>0, :utg1vpip=>0, :covpip=>0, :btnvpip=>0}

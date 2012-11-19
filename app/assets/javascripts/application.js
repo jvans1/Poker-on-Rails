@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require raphael.g
-//= require raphael
-//= require morris
+//= require highcharts
+
 //= require_tree .

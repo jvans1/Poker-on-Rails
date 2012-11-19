@@ -1,0 +1,51 @@
+<h1>Listing handhistories</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+      new Highcharts.Chart({
+        chart: {
+          renderTo: "hands_chart"
+      },
+      title: {
+        text: "Winnings Per Hand"
+      },
+      xAxis: {
+        type:"integer"
+
+      },
+      yAxis: {
+        title: {
+          text: "Dollars"
+        }
+      },
+
+      series: [{
+      
+         data:   <%= (5.years.ago.to_date..Date.today).map{ |date| Handhistory.winnings_on_day(date)}%>
+
+      }]
+      });
+  });
+
+ </script> </script>
+ 
+
+<div id='hands_chart' style = "width:560px; height:300px"></div>
+<%# @handhistories.each do |handhistory| %>
+  <tr>
+    <td><%#= link_to 'Show', handhistory %></td>
+    <td><%#= link_to 'Edit', edit_handhistory_path(handhistory) %></td>
+    <td><%#= link_to 'Destroy', handhistory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<%# end %>
+</table>
+
+<br />
+
+<%= link_to 'New Handhistory', new_handhistory_path %>

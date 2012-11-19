@@ -1,0 +1,17 @@
+<%= form_for(@handhistory) do |f| %>
+  <% if @handhistory.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@handhistory.errors.count, "error") %> prohibited this handhistory from being saved:</h2>
+
+      <ul>
+      <% @handhistory.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

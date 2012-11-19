@@ -1,4 +1,6 @@
 Poker::Application.routes.draw do
+  resources :handhistories
+
   resources :hands
 
   # The priority is based upon order of creation:
