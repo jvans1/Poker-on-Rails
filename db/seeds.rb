@@ -65,6 +65,8 @@ def add_evbb_to_hand_table
 end
 
 # hand_winnings = Handhistory.find_all_by_holecardvalue_id(5).map{|h|h.netamountwon}.sum/100
+
+
 def convert_netamountwon_to_big_blinds
   Handhistory.find_each(:batch_size=> 100000) do |hand|
     gametype_id = hand.gametype_id

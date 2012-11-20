@@ -12,7 +12,7 @@ development:
   adapter: postgresql
   host: localhost
   pool: 5
-  timeout: 500000000000000
+  timeout: 500000000000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
