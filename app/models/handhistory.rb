@@ -13,7 +13,7 @@ class Handhistory < ActiveRecord::Base
     Handhistory.select("#{date_type}, sum(netamountwon) as winnings").group("#{date_type}") 
   end
   def self.winnings_over_days
-    winnings_per_day = Handhistory.select("day, sum(netamountwon) as winnings").group("day").map{|h| h.winnings.to_i/100.0}
+    winnings_per_day = Handhistory.select("day, sum(netamountwon) as winnings").group("day").order("day").map{|h| h.winnings.to_i/100.0}
     accumulated_winnings_day = winnings_per_day.each_with_index.map{|n, index| winnings_per_day.take(index+1).sum}
   end
 

@@ -1,4 +1,5 @@
 Poker::Application.routes.draw do
+  get 'positions' => "handhistories#show"
   resources :handhistories
 
   resources :hands
