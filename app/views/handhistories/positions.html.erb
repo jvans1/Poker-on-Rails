@@ -1,33 +1,24 @@
 <script type="text/javascript" charset="utf-8">
-
 $(function () {
     var chart;
+    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+
     $(document).ready(function() {
+        positions = ["0(Small Blind)", "1(Big Blind)", "2(Utg)", "3(Utg+1)", "4(Cut-off)","5(Button)"]
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'positions',
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Rainfall'
-            },
-            subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: 'Winnings by Position'
             },
             xAxis: {
-                
-                categories: [
-                    '0',
-                    '1',
-                    '2',
-                    '3',
-                    '4',
-                    '5'
-                ]
+                categories: positions 
             },
             yAxis: {
                 title: {
-                    text: 'Rainfall (mm)'
+                    text: 'Big Blinds'
                 }
             },
             legend: {

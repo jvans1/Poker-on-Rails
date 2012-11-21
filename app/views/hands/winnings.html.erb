@@ -1,5 +1,6 @@
 <script>
 $(function () {
+    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
     var chart;
     $(document).ready(function() {
     
@@ -115,7 +116,7 @@ $(function () {
             tooltip: {
                 formatter: function() {
                     var point = this.point,
-                        s = this.x +':<b>'+ this.y +', big blinds won';
+                        s = this.x +':<b>'+ this.y +', big blinds won  ';
                     if (point.drilldown) {
                         s += 'Click to view '+ point.category +' winnings by position';
                     } else {
