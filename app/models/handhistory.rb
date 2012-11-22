@@ -2,7 +2,7 @@ class Handhistory < ActiveRecord::Base
   set_table_name "playerhandscashkeycolumns_hero"
   set_primary_key :pokerhand_id
 
-
+  belongs_to :gametype
 
   has_one :hand, :class_name => "Hand", :foreign_key => "holecardvalue_id"
 

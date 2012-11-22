@@ -26,4 +26,10 @@ class HandsController < ApplicationController
       format.json { render json: @hand }
     end
   end
+  def percent_winning
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @hand }
+    end
+  end
 end

@@ -4,5 +4,5 @@ class Gametype < ActiveRecord::Base
 
   set_primary_key "gametype_id"
   # attr_accessible :title, :body
-  belongs_to :handhistory, :class_name => "Handhistory", :foreign_key => "gametype_id"
+  has_many :handhistories, :class_name => "Handhistory", :foreign_key => "gametype_id"
 end
