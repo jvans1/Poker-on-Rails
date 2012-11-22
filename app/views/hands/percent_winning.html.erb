@@ -5,23 +5,29 @@ $(function () {
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
-                renderTo: 'percent_winning',
+                renderTo: 'container',
                 type: 'column'
             },
             title: {
-                text: 'Percent of hands that win money by position'
+                text: 'Monthly Average Rainfall'
             },
-          
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
             xAxis: {
                 categories: [
-              "0 (Small Blind)", "1 (Big Blind)", "2 (UTG)", "3 (UTG+1", "4 (Cut-off)", "5 (Button)"
-          ]
+                    '0',
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5'
+                ]
             },
             yAxis: {
                 min: 0,
-                max: 100,
                 title: {
-                    text: 'Percent'
+                    text: 'Rainfall (mm)'
                 }
             },
             legend: {
@@ -36,8 +42,8 @@ $(function () {
             },
             tooltip: {
                 formatter: function() {
-                    return ''+
-                        this.x +': '+ this.y +' mm';
+                    return 'At position '+
+                        this.x +': '+ this.y +'% of hands make money';
                 }
             },
             plotOptions: {
@@ -47,9 +53,8 @@ $(function () {
                 }
             },
                 series: [{
-                name: 'Winning Percent',
-                data: [ 20.710059171597633, 21.301775147928995,33.136094674556216, 30.177514792899407, 40.236686390532544, 54.43786982248521]
-
+                name: 'Tokyo',
+                data: [ 20.71, 21.30,33.13, 30.17, 40.23, 54.43]
     
             }]
         });
@@ -58,4 +63,4 @@ $(function () {
 })
  </script>
 
-<div id='percent_winning' style = "height: 400px"></div>
+<div id='container' style = "height: 400px"></div>

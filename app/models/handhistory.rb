@@ -20,7 +20,60 @@ class Handhistory < ActiveRecord::Base
     date_type.map{|y| y.winnings.to_i/100}
   end
 
+ def self.percent_winning_hands_by_position
+    winning_hands = {:btn=>0,:co=>0,:hj=>0, :sb=>0, :bb=>0, :utg=>0}
+    losing_hands= {:btn=>0,:co=>0,:hj=>0, :sb=>0, :bb=>0, :utg=>0}
 
+    hand_position_winnings = []
+    holecardvalue_id = 1
+    while holecardvalue_id <170
+      hand_position_winnings = Handhistory.select("positiontype_id, sum(bbwon) as winnings").where("holecardvalue_id =?", holecardvalue_id).group("positiontype_id").order("positiontype_id")
+
+        hand_position_winnings.each do |pos|
+          case pos.positiontype_id
+          when 0
+            if pos.winnings.to_i >0
+              winning_hands[:sb] +=1
+            elsif pos.winnings.to_i <0
+              losing_hands[:sb] +=1
+            end
+          when 1
+            if pos.winnings.to_i >0
+              winning_hands[:bb] +=1
+            elsif pos.winnings.to_i <0
+              losing_hands[:bb] +=1
+            end
+          when 2
+            if pos.winnings.to_i >0
+              winning_hands[:utg] +=1
+            elsif pos.winnings.to_i <0
+              losing_hands[:utg] +=1
+            end
+          when 3
+            if pos.winnings.to_i >0
+              winning_hands[:hj] +=1
+            elsif pos.winnings.to_i <0
+              losing_hands[:hj] +=1
+            end
+          when 4
+            if pos.winnings.to_i >0
+              winning_hands[:co] +=1
+            elsif pos.winnings.to_i <0
+              losing_hands[:co] +=1
+            end
+          when 5
+            if pos.winnings.to_i >0
+              winning_hands[:btn] +=1
+            elsif pos.winnings.to_i <0
+              losing_hands[:btn] +=1
+            end
+          end
+
+        end
+      holecardvalue_id+=1
+      end
+     winning_hands.map{ |key, value| value/169.00}
+  end
   def self.vpip_by_position
     (filter = "off")
     positions ={:small_blind=>0, :big_blind =>0, :utg=>0, :utg1=>0, :co =>0, :btn =>0, :sbvpip=>0, :bbvpip=>0, :utgvpip=>0, :utg1vpip=>0, :covpip=>0, :btnvpip=>0}
@@ -55,12 +108,17 @@ class Handhistory < ActiveRecord::Base
       puts positions[:covpip].to_f/positions[:co].to_f
       puts positions[:btnvpip].to_f/positions[:btn].to_f
     end
+
+
   def self.winnings_by_position
     positions = Handhistory.select("positiontype_id, sum(bbwon) as winnings").group("positiontype_id")
     positions.sort_by! { |pos| pos.positiontype_id}
     positions.map { |p| p.winnings.to_i/100 }
   end
-
+  
+  def self.group_hands(date_type)
+    Handhistory.select("#{date_type}, sum(bbwon) as winnings").group("#{date_type}") 
+  end
 
   def self.winnings_percent(group)
     winning  = 0
@@ -75,9 +133,7 @@ class Handhistory < ActiveRecord::Base
     winning_percent = (winning*100)/((losing+winning))
   end
 
-  def self.group_hands(date_type)
-    Handhistory.select("#{date_type}, sum(bbwon) as winnings").group("#{date_type}") 
-  end
+
 
   def pre_black_friday?
     true if self.year < 2011 || (self.month <5 && self.year ==2011)
