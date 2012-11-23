@@ -98,7 +98,7 @@ class Handhistory < ActiveRecord::Base
 
 
   def self.winnings_by_position
-    positions = Handhistory.select("positiontype_id, sum(bbwon) as winnings").group("positiontype_id")
+    positions = Handhistory.select("positiontype_id, sum(netamountwon) as winnings").group("positiontype_id")
     positions.sort_by! { |pos| pos.positiontype_id}
     positions.map { |p| p.winnings.to_i/100 }
   end
