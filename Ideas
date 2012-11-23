@@ -45,5 +45,7 @@ Handhistory.select("pokerhand_id, sum(evnetwon) as winnings").group("pokerhand_i
 
  WHy can't i rename container?
  moving js files out of views
+ why does it return string instead of integer?
+ specifying localhost
 
  tyring to get Handhistory.first.hand => compares to pokerhand_id not holecardvalue_id

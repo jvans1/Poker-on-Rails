@@ -9,7 +9,8 @@ class Handhistory < ActiveRecord::Base
   has_one :allin, :class_name=> "Allin",  :foreign_key =>"playerhand_id"
 
   def self.winnings_over_days
-    winnings_per_day = Handhistory.select("day, sum(bbwon) as winnings").group("day").order("day").map{|h| h.winnings.to_i/100.0}
+    winnings_per_day = Handhistory.select("day, sum(bbwon) as winnings").
+    group("day").order("day").map{|h| h.winnings.to_i/100.0}
     accumulated_winnings_day = winnings_per_day.each_with_index.map{|n, index| winnings_per_day.take(index+1).sum}
   end
 

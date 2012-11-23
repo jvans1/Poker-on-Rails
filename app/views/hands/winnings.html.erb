@@ -7,7 +7,7 @@ $(function () {
     $(document).ready(function() {
     
         var colors = Highcharts.getOptions().colors,
-            categories = ['AA', 'KK', 'QQ', 'JJ', 'TT'],
+            categories = ['AA', 'KK', 'AK', 'QQ', 'TT'],
             positions = ["0","1","2","3","4","5"]
             name = 'Hand Winnings',
             data = [{
@@ -29,6 +29,15 @@ $(function () {
                         color: colors[1]
                     }
                 }, {
+                    y: <%=Hand.hand_winnings("AKs AKo")%>,
+                    color: colors[3],
+                    drilldown: {
+                        name: 'AK winnings by position',
+                        categories: positions,
+                        data: <%=Hand.position_winnings(92, 14)%>,
+                        color: colors[3]
+                    }
+                },{
                     y: <%=Hand.hand_winnings("QQ")%>,
                     color: colors[2],
                     drilldown: {
@@ -36,7 +45,7 @@ $(function () {
                         categories: positions,
                         data: <%=Hand.position_winnings(3)%>,
                         color: colors[2]
-                    }
+                    } 
                 }, {
                     y: <%=Hand.hand_winnings("JJ")%>,
                     color: colors[3],
@@ -45,16 +54,6 @@ $(function () {
                         categories: positions,
                         data: <%=Hand.position_winnings(4)%>,
                         color: colors[3]
-                    }
-                }, {
-                    y: <%=Hand.hand_winnings("TT")%>,
-
-                    color: colors[4],
-                    drilldown: {
-                        name: 'TT',
-                        categories: positions,
-                        data: <%=Hand.position_winnings(5)%>,
-                        color: colors[4]
                     }
                 }];
     
@@ -143,3 +142,4 @@ $(function () {
 
 </script>
 <div id="container" height:400px></div>
+<%= image_tag("")
