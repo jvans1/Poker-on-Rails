@@ -1,7 +1,7 @@
 class Hand < ActiveRecord::Base
   set_table_name "holecards"
   set_primary_key "holecard_id"
-  belongs_to :handhistory, :class_name => "Handhistory", :foreign_key => "holecardvalue_id"
+  has_many :handhistories
   def self.bbwon(num_hands) 
     Hand.select{ |h| h.holecard_id < num_hands && h.holecard_id >0}.sort{ |a, b| a.bbwinings<=> b.bbwinings}.reverse.map { |h| h.bbwinings/100 }
   end

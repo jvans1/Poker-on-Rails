@@ -2,6 +2,7 @@ Poker::Application.routes.draw do
   get 'positions' => "handhistories#positions"
   get 'hands/winnings' => "hands#winnings"
   get 'hands/winningpercent'=> "hands#percent_winning"
+  get 'hands/losing' => "hands#losing"
   resources :handhistories
 
   resources :hands
