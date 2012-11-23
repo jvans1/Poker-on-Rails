@@ -12,7 +12,7 @@ $(function () {
                     y: hand_winnings[0],
                     color: colors[0],
                     drilldown: {
-                        name: "",//<%=Hand.find_by_holecard_id(1).holecardstring.strip%> ,
+                        name: "AA winnings by position ",
                         categories: positions,
                         data: <%=Hand.position_winnings(1)%>,
                         color: colors[0]
@@ -136,4 +136,6 @@ $(function () {
         });
     });
     
-})
+});
+
+
