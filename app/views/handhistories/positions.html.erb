@@ -18,7 +18,7 @@ $(function () {
             },
             yAxis: {
                 title: {
-                    text: 'Big Blinds'
+                    text: 'Amount Won ($)'
                 }
             },
             legend: {
@@ -34,7 +34,7 @@ $(function () {
             tooltip: {
                 formatter: function() {
                     return ''+
-                        this.x +': '+ this.y +' mm';
+                        "Won $"+ this.y +' at position '+ this.x;
                 }
             },
             plotOptions: {
