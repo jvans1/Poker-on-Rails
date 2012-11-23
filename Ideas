@@ -43,4 +43,7 @@ Questions
 Handhistory.select("pokerhand_id, sum(evnetwon) as winnings").group("pokerhand_id") slow
  Handhistory.select("day, sum(bbwon) as winnings").group("day").order("day").map{|h| h.winnings.to_i/100.0} fast
 
+ WHy can't i rename container?
+ moving js files out of views
+
  tyring to get Handhistory.first.hand => compares to pokerhand_id not holecardvalue_id

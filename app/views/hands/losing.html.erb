@@ -2,54 +2,57 @@
 
 $(function () {
     var chart;
+    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+
     $(document).ready(function() {
     
         var colors = Highcharts.getOptions().colors,
             categories = ['32', 'k9', '42', '62', '73'],
-            name = 'Browser brands',
+            top_5_losers = <%=Handhistory.biggest_losers(5)%>,
+            positions = ["0", "1", "2", "3", "4", "5"],
             data = [{
-                    y:-5168,
+                    y:top_5_losers[0],
                     color: colors[0],
                     drilldown: {
-                        name: 'MSIE versions',
-                        categories: ["0", "1", "2", "3", "4", "5"],
+                        name: 'Winning by position with 32',
+                        categories: positions,
                         data:  [-1999, -3088, -23, -29, -10, -21],
                         color: colors[0]
                     }
                 }, {
-                    y: -5111,
+                    y: top_5_losers[1],
                     color: colors[1],
                     drilldown: {
-                        name: 'Firefox versions',
-                        categories: ["0", "1", "2", "3", "4", "5"],
+                        name: 'Winnings by position with k9',
+                        categories: positions,
                         
                         data: [-1872, -2489, 22, -210, -385, -180],
                         color: colors[1]
                     }
                 }, {
-                    y: -4902,
+                    y: top_5_losers[2],
                     color: colors[2],
                     drilldown: {
-                        name: 'Chrome versions',
-                        categories: ["0", "1", "2", "3", "4", "5"],
+                        name: 'Winnings by position with 42',
+                        categories: positions,
                         data: [-2047, -2755, -20, -23, -29, -31],
                         color: colors[2]
                     }
                 }, {
-                    y: -4831,
+                    y: top_5_losers[3],
                     color: colors[3],
                     drilldown: {
-                        name: 'Safari versions',
-                        categories: ["0", "1", "2", "3", "4", "5"],
+                        name: 'Winnings by position with 62',
+                        categories: positions,
                         data:  [-1935, -2817, -14, -19, -26, -23],
                         color: colors[3]
                     }
                 }, {
-                    y: -4829,
+                    y: top_5_losers[4],
                     color: colors[4],
                     drilldown: {
-                        name: 'Opera versions',
-                        categories:["0", "1", "2", "3", "4", "5"],
+                        name: 'Winnings by position with 73',
+                        categories:positions,
                         data: [-1935, -2817, -14, -19, -26, -23],
                         color: colors[4]
                     }
@@ -72,17 +75,14 @@ $(function () {
                 type: 'column'
             },
             title: {
-                text: 'Browser market share, April, 2011'
-            },
-            subtitle: {
-                text: 'Click the columns to view versions. Click again to view brands.'
+                text: 'Biggest losing hands'
             },
             xAxis: {
                 categories: categories
             },
             yAxis: {
                 title: {
-                    text: 'Total percent market share'
+                    text: 'Total winnings'
                 }
             },
             plotOptions: {
@@ -107,7 +107,7 @@ $(function () {
                             fontWeight: 'bold'
                         },
                         formatter: function() {
-                            return this.y +'%';
+                            return this.y +' Big Blinds';
                         }
                     }
                 }
@@ -115,11 +115,11 @@ $(function () {
             tooltip: {
                 formatter: function() {
                     var point = this.point,
-                        s = this.x +':<b>'+ this.y +'% market share</b><br/>';
+                        s = this.x +':<b>'+ this.y +' big blinds  losses</b><br/>';
                     if (point.drilldown) {
-                        s += 'Click to view '+ point.category +' versions';
+                        s += 'Click to view '+ point.category +' by position';
                     } else {
-                        s += 'Click to return to browser brands';
+                        s += 'Click to return Original graph';
                     }
                     return s;
                 }

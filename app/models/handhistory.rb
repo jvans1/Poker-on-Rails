@@ -120,12 +120,12 @@ class Handhistory < ActiveRecord::Base
     winning_percent = (winning*100)/((losing+winning))
   end
 
-  def biggest_losers
+  def self.biggest_losers(num)
     Handhistory.select("holecardvalue_id, sum(bbwon) as winnings").group("holecardvalue_id").
     sort{ |a, b| a.winnings.to_i<=> b.winnings.to_i}.
-    take(5).map do |h| 
-      holecard = h.hand.holecardstring.strip
-      [h.winnings.to_i/100, h.holecardvalue_id] 
+    take(num).map do |h| 
+      # holecard = h.hand.holecardstring.strip
+      h.winnings.to_i/100
     end
   end
 
