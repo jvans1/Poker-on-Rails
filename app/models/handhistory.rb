@@ -5,8 +5,7 @@ class Handhistory < ActiveRecord::Base
   belongs_to :gametype
 
   has_one :hand, :class_name => "Hand", :foreign_key => "holecardvalue_id"
-
-  
+  has_one :allin, :class_name=> "Allin",  :foreign_key =>"playerhand_id"
 
 
 
@@ -21,14 +20,11 @@ class Handhistory < ActiveRecord::Base
   end
 
  def self.percent_winning_hands_by_position
-    winning_hands = {:btn=>0,:co=>0,:hj=>0, :sb=>0, :bb=>0, :utg=>0}
-    losing_hands= {:btn=>0,:co=>0,:hj=>0, :sb=>0, :bb=>0, :utg=>0}
-
-    hand_position_winnings = []
+    winning_hands = {:btn=>0,:co=>0,:hj=>0, :utg=>0, :sb=>0, :bb=>0}
     holecardvalue_id = 1
     while holecardvalue_id <170
-      hand_position_winnings = Handhistory.select("positiontype_id, sum(bbwon) as winnings").where("holecardvalue_id =?", holecardvalue_id).group("positiontype_id").order("positiontype_id")
-
+      hand_position_winnings = Handhistory.select("positiontype_id, sum(bbwon) as winnings").
+      where("holecardvalue_id =?", holecardvalue_id).group("positiontype_id")
         hand_position_winnings.each do |pos|
           case pos.positiontype_id
           when 0
@@ -134,10 +130,6 @@ class Handhistory < ActiveRecord::Base
   end
 
 
-
-  def pre_black_friday?
-    true if self.year < 2011 || (self.month <5 && self.year ==2011)
-  end
   def heads_up?
     true if self.numberofplayers ==2
   end

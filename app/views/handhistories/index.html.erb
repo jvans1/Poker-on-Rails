@@ -28,8 +28,7 @@
       },
 
       series: [{
-        pointInterval: <%= 7.days * 1000 %>,
-        pointStart: <%= 1.year.ago.at_midnight.to_i * 1000 %>,
+
         data: <%=Handhistory.winnings_over_days%>
       }]
       });
@@ -49,4 +48,3 @@
 
 <br />
 
-<%= link_to 'New Handhistory', new_handhistory_path %>

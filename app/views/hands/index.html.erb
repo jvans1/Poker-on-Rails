@@ -12,10 +12,7 @@ $(function () {
           type: 'column'
       },
       title: {
-          text: 'Monthly Average Rainfall'
-      },
-      subtitle: {
-          text: 'Source: WorldClimate.com'
+          text: 'Winning Frequency'
       },
       xAxis: {
           categories: [
@@ -45,7 +42,7 @@ $(function () {
       tooltip: {
           formatter: function() {
               return ''+
-                  this.x +': '+ this.y +' mm';
+                  this.y +'% of '+ this.x +' are winning';
           }
       },
       plotOptions: {
@@ -64,15 +61,4 @@ $(function () {
  </script>
 
 <div id='holecards' style = "width:560px; height:300px"></div>
-<THEAD>
-     <th>Texas Holdem Hands</th>
-      <tr><td>Hand</td></tr><tr><td>Count</td></tr>
-</THEAD>
-<% @hands.each do |hand| %>
-<TBODY>
-     <TR><td><%=hand.holecardstring%></td>: <Td><%=hand.count%></Td></TR>
-     
-</TBODY>
-<%end%>
-<div>
-<%= link_to 'Back', hands_path %>
+<img src='/Poker-on-Rails/app/assets/images/winningpercent.png'>

@@ -69,8 +69,7 @@ end
 
 def convert_netamountwon_to_big_blinds
   Handhistory.find_each(:batch_size=> 100000) do |hand|
-    gametype_id = hand.gametype_id
-    bb = bigblind(gametype_id)
+    bb = hand.gametype_id.bigblind 
     hand.bbwon = convert_to_big_blind(hand.netamountwon*100, bb)
     hand.save 
   end
@@ -78,11 +77,16 @@ end
 
 #calc winnings per hand in ev
 def set_evbb_column_in_handhistories
-  all_in_hands = Allin.all.map{|h| [h.playerhand_id, h.equitypct] }
-  all_in_hands.each do |id, equitypct|
-    hand = Handhistory.find_by_playerhand_id(id)
-    hand.evbb = calc_ev_per_hand(hand.bbwon, equitypct) unless hand.nil?
-    hand.save unless  hand.nil?
+  all_in_hands = Allin.all.map{|h| h.playerhand_id }
+  Handhistory.find_each(:batch_size => 100000) do |hand|
+    if all_in_hands.include?(hand.playerhand_id)
+      all_in_hand_equity = Allin.find_by_playerhand_id(hand.playerhand_id).equitypct
+      hand.evnetwon = calc_ev_per_hand(hand.netamountwon, all_in_hand_equity) unless hand.nil?
+      hand.save unless  hand.nil?
+    else
+      hand.evnetwon = hand.netamountwon
+      hand.save
+    end
   end
 end
 def fill_nill_rows_in_evbb_column
@@ -108,6 +112,10 @@ def calc_ev_per_hand(bbwon, eqt)
 end
 def all_in_before_river?(hand)
   hand.streetwentallin < 4 && hand.streetwentallin >0
+end
+
+d
+  
 end
 
 
