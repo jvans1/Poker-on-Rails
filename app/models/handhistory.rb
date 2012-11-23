@@ -121,10 +121,10 @@ class Handhistory < ActiveRecord::Base
   end
 
   def self.biggest_losers(num)
-    Handhistory.select("holecardvalue_id, sum(bbwon) as winnings").group("holecardvalue_id").
+    Handhistory.select("holecardvalue_id, sum(netamountwon) as winnings").group("holecardvalue_id").
     sort{ |a, b| a.winnings.to_i<=> b.winnings.to_i}.
     take(num).map do |h| 
-      # holecard = h.hand.holecardstring.strip
+      # holecard = h.hand.holecard_id
       h.winnings.to_i/100
     end
   end

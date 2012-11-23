@@ -10,9 +10,9 @@ class Hand < ActiveRecord::Base
   end
 
   def self.position_winnings(id)
-    positions = Handhistory.select("positiontype_id, sum(bbwon) as winnings").
+    positions = Handhistory.select("positiontype_id, sum(netamountwon) as winnings").
     where("holecardvalue_id=?", id ).group("positiontype_id").order("positiontype_id")
-    position_winnings = convert_to_winnings(positions)
+    position_winnings = convert_to_winnings(positions)  
   end
 
   def self.convert_to_winnings(array)
