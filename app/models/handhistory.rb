@@ -16,22 +16,10 @@ class Handhistory < ActiveRecord::Base
   end
 
 
-
-
-
-
-
   def self.winnings_by_day(date)
     date_type = Handhistory.select("day, sum(bbwon) as winnings").group(date) 
     date_type.map{|y| y.winnings.to_i/100}
   end
-
-
-
-
-
-
-
 
 
  def self.percent_winning_hands_by_position
@@ -62,14 +50,13 @@ class Handhistory < ActiveRecord::Base
   end
 
 
-  def self.vpip_by_position(filter = "off")
+  def self.vpip_by_position
     positions ={:small_blind=>0, :big_blind =>0, :utg=>0, :utg1=>0, :co =>0, :btn =>0, :sbvpip=>0, :bbvpip=>0, :utgvpip=>0, :utg1vpip=>0, :covpip=>0, :btnvpip=>0}
     vpip = Handhistory.select("positiontype_id, numberofplayers, didvpip")
     vpip.each do |hand|
-      next if filter.downcase == "on" && hand.heads_up?
         case hand.positiontype_id
         when 0 
-          positions[:small_blind] +=1
+          positions[:small_blind] +=1 #Handhistory.where("positiontype_id = 0")
           positions[:sbvpip] +=1 if hand.didvpip
         when 1
           positions[:big_blind] +=1
@@ -103,16 +90,10 @@ class Handhistory < ActiveRecord::Base
   end
 
   def self.winnings_percent(group)
-    winning  = 0
-    losing = 0
-    group.each do |item|
-      if item.winnings.to_i>0
-        winning +=1
-      elsif item.winnings.to_i <0
-        losing +=1
-      end
-    end
-    winning_percent = (winning*100)/((losing+winning))
+    times_winning = group.select{ |item| item.winnings.to_i > 0}.count
+    times_losing = group.select { |item| item.winnings.to_i <0 }.count
+ 
+    winning_percent = (times_winning*100)/((times_losing+times_winning))
   end
 
   def self.biggest_losers(num)
