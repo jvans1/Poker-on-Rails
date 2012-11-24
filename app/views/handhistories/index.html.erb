@@ -29,22 +29,45 @@
 
       series: [{
 
-        data: <%=Handhistory.winnings_over_days%>
-      }]
+        data: <%=Handhistory.winnings_over_days("bbwon")%>
+      },
+
+      ]
       });
   });
 </script>
- 
+ <script type="text/javascript" charset="utf-8">
+  $(function() {
+    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 
-<div id='winnings_day' style = "width:560px; height:300px"></div>
-<%# @handhistories.each do |handhistory| %>
-  <tr>
-    <td><%#= link_to 'Show', handhistory %></td>
-    <td><%#= link_to 'Edit', edit_handhistory_path(handhistory) %></td>
-    <td><%#= link_to 'Destroy', handhistory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<%# end %>
-</table>
+      new Highcharts.Chart({
+        chart: {
+          renderTo: "dollars"
+      },
+      title: {
+        text: "Winnings Per Day"
+      },
+      xAxis: {
+        type:"date"
 
-<br />
+      },
+      yAxis: {
+        title: {
+          text: "Dollars($)"
+        }
+      },
 
+      series: [{
+
+        data: <%=Handhistory.winnings_over_days("netamountwon")%>
+      },
+
+      ]
+      });
+  });
+</script>
+<div id="dollars" style = "width:660px; height:380px"></div>
+<div id='winnings_day' style = "width:660px; height:380px"></div>
+
+
+<%= image_tag("totalwinningsgraph.png")%>

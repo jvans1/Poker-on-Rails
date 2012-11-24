@@ -8,66 +8,60 @@ class Handhistory < ActiveRecord::Base
 
   has_one :allin, :class_name=> "Allin",  :foreign_key =>"playerhand_id"
 
-  def self.winnings_over_days
-    winnings_per_day = Handhistory.select("day, sum(bbwon) as winnings").
+  def self.winnings_over_days(type)
+    winnings_per_day = Handhistory.select("day, sum(#{type}) as winnings").
     group("day").order("day").map{|h| h.winnings.to_i/100.0}
-    accumulated_winnings_day = winnings_per_day.each_with_index.map{|n, index| winnings_per_day.take(index+1).sum}
+    accumulated_winnings_day = winnings_per_day.each_with_index.
+    map{|n, index| winnings_per_day.take(index+1).sum}
   end
+
+
+
+
+
+
 
   def self.winnings_by_day(date)
     date_type = Handhistory.select("day, sum(bbwon) as winnings").group(date) 
     date_type.map{|y| y.winnings.to_i/100}
   end
 
- # def self.percent_winning_hands_by_position
- #    winning_hands = {:btn=>0,:co=>0,:hjlue_id = 1
- #    while holecardvalue_id <170
- #      hand_position_winnings = Handhistory.select("positiontype_id, sum(bbwon) as winnings").
- #      where("holecardvalue_id =?", holecardvalue_id).group("positiontype_id")
- #        hand_position_winnings.each do |pos|
- #          case pos.positiontype_id
- #          when 0
- #            if pos.winnings.to_i >0
- #              winning_hands[:sb] +=1
- #            elsif pos.winnings.to_i <0
- #              losing_hands[:sb] +=1
- #            end
- #          when 1
- #            if pos.winnings.to_i >0
- #              winning_hands[:bb] +=1
- #            elsif pos.winnings.to_i <0
- #              losing_hands[:bb] +=1
- #            end
- #          when 2
- #            if pos.winnings.to_i >0
- #              winning_hands[:utg] +=1
- #            elsif pos.winnings.to_i <0
- #              losing_hands[:utg] +=1
- #            end
- #          when 3
- #            if pos.winnings.to_i >0
- #              winning_hands[:hj] +=1
- #            elsif pos.winnings.to_i <0
- #              losing_hands[:hj] +=1
- #            end
- #          when 4
- #            if pos.winnings.to_i >0
- #              winning_hands[:co] +=1
- #            elsif pos.winnings.to_i <0
- #              losing_hands[:co] +=1
- #            end
- #          when 5
- #            if pos.winnings.to_i >0
- #              winning_hands[:btn] +=1
- #            elsif pos.winnings.to_i <0
- #              losing_hands[:btn] +=1
- #            end
- #          end
- #        end
- #      holecardvalue_id+=1
- #      end
- #     winning_hands.map{ |key, value| value/169.00}
- #  end
+
+
+
+
+
+
+
+
+ def self.percent_winning_hands_by_position
+    winning_hands = {:sb=>0,:bb=>0,:utg => 1, :hj=> 0, :co=> 0, :btn=>0}
+    holecardvalue_id=1
+    while holecardvalue_id <170
+      hand_position_winnings = Handhistory.select("positiontype_id, sum(bbwon) as winnings").
+      where("holecardvalue_id =?", holecardvalue_id).group("positiontype_id")
+        hand_position_winnings.each do |pos|
+          case pos.positiontype_id
+          when 0
+            winning_hands[:sb] +=1 if pos.winnings.to_i >0
+          when 1
+            winning_hands[:bb] +=1 if pos.winnings.to_i >0
+          when 2            
+            winning_hands[:utg] +=1 if pos.winnings.to_i >0
+          when 3
+            winning_hands[:hj] +=1 if pos.winnings.to_i >0
+          when 4
+            winning_hands[:co] +=1 if pos.winnings.to_i >0
+          when 5
+            winning_hands[:btn] +=1 if pos.winnings.to_i >0
+          end
+        end
+      holecardvalue_id+=1
+      end
+     winning_hands.map{ |key, value| value/169.00}
+  end
+
+
   def self.vpip_by_position(filter = "off")
     positions ={:small_blind=>0, :big_blind =>0, :utg=>0, :utg1=>0, :co =>0, :btn =>0, :sbvpip=>0, :bbvpip=>0, :utgvpip=>0, :utg1vpip=>0, :covpip=>0, :btnvpip=>0}
     vpip = Handhistory.select("positiontype_id, numberofplayers, didvpip")

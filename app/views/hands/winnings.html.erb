@@ -121,7 +121,7 @@ $(function () {
                     if (point.drilldown) {
                         s += 'Click to view '+ point.category +' winnings by position';
                     } else {
-                        s += 'Click to return to browser brands';
+                        s += 'Click to biggest winning hands';
                     }
                     return s;
                 }
@@ -142,4 +142,7 @@ $(function () {
 
 </script>
 <div id="container" height:400px></div>
-<%= image_tag("")
+<div style = "height: 200px" height:200px>
+<%= image_tag("topwinners1.png")%>
+<div>
+    <div><%= image_tag("bigwinners2.png")%></div>

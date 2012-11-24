@@ -18,7 +18,8 @@ class Hand < ActiveRecord::Base
   def self.hand_winnings(hand_string)
     if hand_string.split.length >1
       hand1, hand2 = hand_string.split
-      total_winnings = Hand.find_by_holecardstring(hand1).winnings + Hand.find_by_holecardstring(hand2).winnings
+      total_winnings = Hand.find_by_holecardstring(hand1).winnings + 
+      Hand.find_by_holecardstring(hand2).winnings
     else
       total_winnings = Hand.find_by_holecardstring(hand_string).winnings
     end
