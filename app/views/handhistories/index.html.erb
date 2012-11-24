@@ -6,66 +6,9 @@
     <th></th>
     <th></th>
   </tr>
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 
-      new Highcharts.Chart({
-        chart: {
-          renderTo: "winnings_day"
-      },
-      title: {
-        text: "Winnings Per Day"
-      },
-      xAxis: {
-        type:"date"
-
-      },
-      yAxis: {
-        title: {
-          text: "Big Blinds"
-        }
-      },
-
-      series: [{
-
-        data: <%=Handhistory.winnings_over_days("bbwon")%>
-      },
-
-      ]
-      });
-  });
-</script>
- <script type="text/javascript" charset="utf-8">
-  $(function() {
-    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
-
-      new Highcharts.Chart({
-        chart: {
-          renderTo: "dollars"
-      },
-      title: {
-        text: "Winnings Per Day"
-      },
-      xAxis: {
-        type:"date"
-
-      },
-      yAxis: {
-        title: {
-          text: "Dollars($)"
-        }
-      },
-
-      series: [{
-
-        data: <%=Handhistory.winnings_over_days("netamountwon")%>
-      },
-
-      ]
-      });
-  });
-</script>
+<%= javascript_include_tag "handhistory/winnings/total_winnings.js.erb"%>
+<%= javascript_include_tag "handhistory/winnings/dollars.js.erb"%>
 <div id="dollars" style = "width:660px; height:380px"></div>
 <div id='winnings_day' style = "width:660px; height:380px"></div>
 

@@ -1,0 +1,29 @@
+
+$(function() {
+    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+
+      new Highcharts.Chart({
+        chart: {
+          renderTo: "dollars"
+      },
+      title: {
+        text: "Winnings Per Day"
+      },
+      xAxis: {
+        type:"date"
+
+      },
+      yAxis: {
+        title: {
+          text: "Dollars($)"
+        }
+      },
+
+      series: [{
+
+        data: <%=Handhistory.winnings_over_days("netamountwon")%>
+      },
+
+      ]
+      });
+  });

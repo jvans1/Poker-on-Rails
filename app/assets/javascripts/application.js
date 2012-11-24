@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require highcharts
 
-//= require_tree .
+//= require_directory .
 
 
 Highcharts.theme = {

@@ -1,0 +1,54 @@
+$(function () {
+    var chart;
+    chart = new Highcharts.Chart({
+      chart: {
+          renderTo: 'holecards',
+          type: 'column'
+      },
+      title: {
+          text: 'Winning Frequency'
+      },
+      xAxis: {
+          categories: [
+              'Hands',
+              'Days',
+              'Months',
+              'Years'
+          ]
+      },
+      yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+              text: 'Winning Frequency'
+          }
+      },
+      legend: {
+          layout: 'vertical',
+          backgroundColor: '#FFFFFF',
+          align: 'left',
+          verticalAlign: 'top',
+          x: 100,
+          y: 100,
+          floating: true,
+          shadow: true
+      },
+      tooltip: {
+          formatter: function() {
+              return ''+
+                  this.y +'% of '+ this.x +' are winning';
+          }
+      },
+      plotOptions: {
+          column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+          }
+      },
+          series: [{
+              name: "Winning Frequency",
+              data: [25, 53, 73,100 ]
+
+      }]
+    });    
+})

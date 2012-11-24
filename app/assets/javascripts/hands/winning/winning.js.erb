@@ -1,0 +1,139 @@
+$(function () {
+
+    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+    var chart;
+    $(document).ready(function() {
+    
+        var colors = Highcharts.getOptions().colors,
+            categories = ['AA', 'KK', 'AK', 'QQ', 'TT'],
+            positions = ["0","1","2","3","4","5"]
+            name = 'Hand Winnings',
+            data = [{
+                    y: <%=Hand.hand_winnings("AA")%>,
+                    color: colors[0],
+                    drilldown: {
+                        name: "AA winnings by position ",
+                        categories: positions,
+                        data: <%=Hand.position_winnings(1)%>,
+                        color: colors[0]
+                    }
+                }, {
+                    y: <%=Hand.hand_winnings("KK")%>,
+                    color: colors[1],
+                    drilldown: {
+                        name: 'KK winnings by position',
+                        categories: positions,
+                        data: <%=Hand.position_winnings(2)%>,
+                        color: colors[1]
+                    }
+                }, {
+                    y: <%=Hand.hand_winnings("AKs AKo")%>,
+                    color: colors[3],
+                    drilldown: {
+                        name: 'AK winnings by position',
+                        categories: positions,
+                        data: <%=Hand.position_winnings(92, 14)%>,
+                        color: colors[3]
+                    }
+                },{
+                    y: <%=Hand.hand_winnings("QQ")%>,
+                    color: colors[2],
+                    drilldown: {
+                        name: 'QQ winnings by position',
+                        categories: positions,
+                        data: <%=Hand.position_winnings(3)%>,
+                        color: colors[2]
+                    } 
+                }, {
+                    y: <%=Hand.hand_winnings("JJ")%>,
+                    color: colors[3],
+                    drilldown: {
+                        name: 'JJ winnings by position',
+                        categories: positions,
+                        data: <%=Hand.position_winnings(4)%>,
+                        color: colors[3]
+                    }
+                }];
+    
+        function setChart(name, categories, data, color) {
+            chart.xAxis[0].setCategories(categories, false);
+            chart.series[0].remove(false);
+            chart.addSeries({
+                name: name,
+                data: data,
+                color: color || 'white'
+            }, false);
+            chart.redraw();
+        }
+    
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'tophands',
+                type: 'column'
+            },
+            title: {
+                text: 'Winnings per hand'
+            },
+            subtitle: {
+                text: 'Click the columns to view winnings by position.'
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                title: {
+                    text: 'Total Dollars Won($)'
+                }
+            },
+            plotOptions: {
+                column: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function() {
+                                var drilldown = this.drilldown;
+                                if (drilldown) { // drill down
+                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                                } else { // restore
+                                    setChart(name, categories, data);
+                                }
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        color: colors[0],
+                        style: {
+                            fontWeight: 'itallic'
+                        },
+                        formatter: function() {
+                            return "$"+this.y;
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    var point = this.point,
+                        s = this.x +':<b>'+ this.y +', big blinds won  ';
+                    if (point.drilldown) {
+                        s += 'Click to view '+ point.category +' winnings by position';
+                    } else {
+                        s += 'Click to biggest winning hands';
+                    }
+                    return s;
+                }
+            },
+            series: [{
+                name: name,
+                data: data,
+                color: 'white'
+            }],
+            exporting: {
+                enabled: false
+            }
+        });
+    });
+    
+});
+

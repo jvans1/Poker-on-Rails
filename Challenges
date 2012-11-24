@@ -1,0 +1,5 @@
+Challenges:
+  -Putting multiple graphs in the same view
+    -change to require_tree . in  applications.js
+    - put file in folder javascripts/hands/losing/losing.js.erb
+    - add javascript_include_tag to view page
