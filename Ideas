@@ -47,5 +47,7 @@ Handhistory.select("pokerhand_id, sum(evnetwon) as winnings").group("pokerhand_i
  moving js files out of views
  why does it return string instead of integer?
  specifying localhost
+can you store floats in a database?
+
 
  tyring to get Handhistory.first.hand => compares to pokerhand_id not holecardvalue_id
