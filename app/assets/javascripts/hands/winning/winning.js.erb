@@ -55,9 +55,10 @@ $(function () {
                     }
                 }];
     
+
         function setChart(name, categories, data, color) {
             chart.xAxis[0].setCategories(categories, false);
-            chart.series[0].remove(false);
+            chart.series[0].remove();
             chart.addSeries({
                 name: name,
                 data: data,
