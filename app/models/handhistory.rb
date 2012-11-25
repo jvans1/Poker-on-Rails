@@ -21,33 +21,29 @@ class Handhistory < ActiveRecord::Base
     date_type.map{|y| y.winnings.to_i/100}
   end
 
-
- def self.percent_winning_hands_by_position
+  def self.percent_winning_hands_by_position
     winning_hands = {:sb=>0,:bb=>0,:utg => 1, :hj=> 0, :co=> 0, :btn=>0}
-    holecardvalue_id=1
-    while holecardvalue_id <170
-      hand_position_winnings = Handhistory.select("positiontype_id, sum(bbwon) as winnings").
-      where("holecardvalue_id =?", holecardvalue_id).group("positiontype_id")
-        hand_position_winnings.each do |pos|
-          case pos.positiontype_id
-          when 0
-            winning_hands[:sb] +=1 if pos.winnings.to_i >0
-          when 1
-            winning_hands[:bb] +=1 if pos.winnings.to_i >0
-          when 2            
-            winning_hands[:utg] +=1 if pos.winnings.to_i >0
-          when 3
-            winning_hands[:hj] +=1 if pos.winnings.to_i >0
-          when 4
-            winning_hands[:co] +=1 if pos.winnings.to_i >0
-          when 5
-            winning_hands[:btn] +=1 if pos.winnings.to_i >0
-          end
-        end
-      holecardvalue_id+=1
+    hand_position_winnings = Handhistory.select("positiontype_id, sum(bbwon) as winnings, holecardvalue_id").group("positiontype_id, holecardvalue_id").where("holecardvalue_id<170")
+    hand_position_winnings.each do |hpw|
+      case hpw.positiontype_id
+        when 0
+          winning_hands[:sb] +=1 if hpw.winnings.to_i >0
+        when 1
+          winning_hands[:bb] +=1 if hpw.winnings.to_i >0
+        when 2            
+          winning_hands[:utg] +=1 if hpw.winnings.to_i >0
+        when 3
+          winning_hands[:hj] +=1 if hpw.winnings.to_i >0
+        when 4
+          winning_hands[:co] +=1 if hpw.winnings.to_i >0
+        when 5
+          winning_hands[:btn] +=1 if hpw.winnings.to_i >0
       end
-     winning_hands.map{ |key, value| value/169.00*100}
+    end
+      winning_hands.map{ |key, value| value/169.00*100}
   end
+
+
 
 
   def self.vpip_by_position
