@@ -46,7 +46,7 @@ class Handhistory < ActiveRecord::Base
         end
       holecardvalue_id+=1
       end
-     winning_hands.map{ |key, value| value/169.00}
+     winning_hands.map{ |key, value| value/169.00*100}
   end
 
 
