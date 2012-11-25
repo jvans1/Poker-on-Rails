@@ -22,7 +22,7 @@ class Handhistory < ActiveRecord::Base
   end
 
   def self.percent_winning_hands_by_position
-    winning_hands = {:sb=>0,:bb=>0,:utg => 1, :hj=> 0, :co=> 0, :btn=>0}
+    winning_hands = {:sb=>0,:bb=>0,:utg => 0, :hj=> 0, :co=> 0, :btn=>0}
     hand_position_winnings = Handhistory.select("positiontype_id, sum(bbwon) as winnings, holecardvalue_id").group("positiontype_id, holecardvalue_id").where("holecardvalue_id<170")
     hand_position_winnings.each do |hpw|
       case hpw.positiontype_id
@@ -40,7 +40,7 @@ class Handhistory < ActiveRecord::Base
           winning_hands[:btn] +=1 if hpw.winnings.to_i >0
       end
     end
-      winning_hands.map{ |key, value| value/169.00*100}
+      winning_hands
   end
 
 
