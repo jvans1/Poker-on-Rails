@@ -1,8 +1,9 @@
 $(function () {
-    var chart;
-    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 
-    $(document).ready(function() {
+    $("#percent").exists(function() {
+        var chart;
+        var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'percent',

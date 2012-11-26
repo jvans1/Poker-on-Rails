@@ -1,51 +1,12 @@
-Ideas
-  #Winnings Per day/ week/month/year => Can get all info from playerhandscashkeycolumns_hero
 
-  #Winnings per types of hands playerhandscashkeycolumns_hero
-  #Expected Value
-  #derivative of hand(groups of) winnings over time
+  
+Handhistory.select("sum(netamountwon) as winnings") -matt
 
-Presentation Layout
-  1. About me
-  2. Background
-  3. Explain Holdem Manager > postgres
-  4. Extracting the HEM database
-  5. Wrapping the database
-  6. Issues I ran into
-    Timing out find_each(:batch_size)
-  7. Do you always win?
-    %hands/days/months/years
+why does aggregate return string instead of integer?
+.js.erb files
+javascript include tag and individual folders //
+dynamic
+Side Project - Swaptrack
 
 
-  x. Position is everything
-    winnings by position
-    %hands played by position
-   
-
-#Changing Class names
-#config Database
-#Postgres Disconnect and for_each(:batch) method
-#workign with datetime
-
-#Explain Holdem Manager/database
-#Intro:
-  Poker Player -pic of multitabling
-1. Do you always win/how much luck is involved?(EV)
-# %winning hands, days, months, years
-# 
-2. w
-2. Lesson: Position is everything
-  Winnings per position => % hands played per position
-  Handhistory.select("sum(netamountwon) as winnings").group("positiontype_id")
-3. Winnings per player/how many people i've won from
-
-Questions 
-Handhistory.select("pokerhand_id, sum(evnetwon) as winnings").group("pokerhand_id") slow
- Handhistory.select("day, sum(bbwon) as winnings").group("day").order("day").map{|h| h.winnings.to_i/100.0} fast
-
-why does it return string instead of integer?
-specifying localhost
-can you store floats in a database?
-
-
- tyring to get Handhistory.first.hand => compares to pokerhand_id not holecardvalue_id
+Ask him about queries

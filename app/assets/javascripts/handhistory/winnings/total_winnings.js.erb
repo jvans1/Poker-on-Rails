@@ -1,29 +1,32 @@
   $(function() {
-    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+    $("#winnings_day").exists(function() {
 
-      new Highcharts.Chart({
-        chart: {
-          renderTo: "winnings_day"
-      },
-      title: {
-        text: "Winnings Per Day"
-      },
-      xAxis: {
-        type:"date"
+      var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 
-      },
-      yAxis: {
+        new Highcharts.Chart({
+          chart: {
+            renderTo: "winnings_day"
+        },
         title: {
-          text: "Big Blinds"
-        }
-      },
+          text: "Winnings Per Day"
+        },
+        xAxis: {
+          type:"date"
 
-      series: [{
+        },
+        yAxis: {
+          title: {
+            text: "Big Blinds"
+          }
+        },
 
-        data: <%=Handhistory.winnings_over_days("bbwon")%>
-      },
+        series: [{
 
-      ]
-      });
+          data: <%=Handhistory.winnings_over_days("bbwon")%>
+        },
+
+        ]
+        });
+      })
   });
 

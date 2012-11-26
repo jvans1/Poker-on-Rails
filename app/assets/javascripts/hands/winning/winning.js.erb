@@ -1,9 +1,7 @@
 $(function () {
-
     var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
     var chart;
-    $(document).ready(function() {
-    
+    $("#tophands").ready(function(){
         var colors = Highcharts.getOptions().colors,
             categories = ['AA', 'KK', 'AK', 'QQ', 'TT'],
             positions = ["0","1","2","3","4","5"]
@@ -54,8 +52,6 @@ $(function () {
                         color: colors[3]
                     }
                 }];
-    
-
         function setChart(name, categories, data, color) {
             chart.xAxis[0].setCategories(categories, false);
             chart.series[0].remove();
@@ -66,7 +62,6 @@ $(function () {
             }, false);
             chart.redraw();
         }
-    
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'tophands',
@@ -134,7 +129,7 @@ $(function () {
                 enabled: false
             }
         });
+
     });
-    
 });
 

@@ -1,52 +1,52 @@
 $(function () {
-    var chart;
-    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+        $("#winnings_by_position").exists(function() {
+            console.log("Test")
+            var chart;
+            var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 
-    $(document).ready(function() {
-        positions = ["0(Small Blind)", "1(Big Blind)", "2(Utg)", "3(Utg+1)", "4(Cut-off)","5(Button)"]
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: "winnings_by_position",
-                type: 'column'
-            },
-            title: {
-                text: 'Winnings by Position'
-            },
-            xAxis: {
-                categories: positions 
-            },
-            yAxis: {
+            positions = ["0(Small Blind)", "1(Big Blind)", "2(Utg)", "3(Utg+1)", "4(Cut-off)","5(Button)"]
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: "winnings_by_position",
+                    type: 'column'
+                },
                 title: {
-                    text: 'Amount Won ($)'
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                backgroundColor: '#FFFFFF',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 100,
-                y: 70,
-                floating: true,
-                shadow: true
-            },
-            tooltip: {
-                formatter: function() {
-                    return ''+
-                        "Won $"+ this.y +' at position '+ this.x;
-                }
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-                series: [{
-                data: <%=Handhistory.winnings_by_position%>
-    
-            }]
+                    text: 'Winnings by Position'
+                },
+                xAxis: {
+                    categories: positions 
+                },
+                yAxis: {
+                    title: {
+                        text: 'Amount Won ($)'
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    backgroundColor: '#FFFFFF',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 100,
+                    y: 70,
+                    floating: true,
+                    shadow: true
+                },
+                tooltip: {
+                    formatter: function() {
+                        return ''+
+                            "Won $"+ this.y +' at position '+ this.x;
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                    series: [{
+                    data: <%=Handhistory.winnings_by_position%>
+        
+                }]
+            });
         });
-    });
-    
-})
+});

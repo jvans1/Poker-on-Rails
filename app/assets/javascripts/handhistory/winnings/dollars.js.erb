@@ -1,29 +1,32 @@
 
 $(function() {
-    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+  $("#dollars").exists(function() {
 
-      new Highcharts.Chart({
-        chart: {
-          renderTo: "dollars"
-      },
-      title: {
-        text: "Winnings Per Day"
-      },
-      xAxis: {
-        type:"date"
+      var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 
-      },
-      yAxis: {
+        new Highcharts.Chart({
+          chart: {
+            renderTo: "dollars"
+        },
         title: {
-          text: "Dollars($)"
-        }
-      },
+          text: "Winnings Per Day"
+        },
+        xAxis: {
+          type:"date"
 
-      series: [{
+        },
+        yAxis: {
+          title: {
+            text: "Dollars($)"
+          }
+        },
 
-        data: <%=Handhistory.winnings_over_days("netamountwon")%>
-      },
+        series: [{
 
-      ]
-      });
+          data: <%=Handhistory.winnings_over_days("netamountwon")%>
+        },
+
+        ]
+        });
+      })
   });

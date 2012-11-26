@@ -1,4 +1,3 @@
-
 class Hand < ActiveRecord::Base
   set_table_name "holecards"
   set_primary_key "holecard_id"

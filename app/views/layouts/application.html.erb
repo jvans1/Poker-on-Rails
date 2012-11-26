@@ -45,9 +45,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Poker</a>
+          <%=link_to "Poker", root_url, :class=> "brand"%>
           <div class="container nav-collapse">
             <ul class="nav">
+              <li><%= link_to "Cash Game Winnings", "/handhistories"%></li>
               <li><%= link_to "Positions", "/positions"  %></li>
               <li><%= link_to "Biggest Winners", "/hands/winnings"  %></li>
               <li><%= link_to "Biggest Losers", "/hands/losing"  %></li>
