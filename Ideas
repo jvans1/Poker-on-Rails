@@ -1,12 +1,6 @@
 
   
-Handhistory.select("sum(netamountwon) as winnings") -matt
-
-why does aggregate return string instead of integer?
-.js.erb files
-javascript include tag and individual folders //
-dynamic
-Side Project - Swaptrack
-
+Handhistory.select("sum(netamountwon) as winnings") 
+using AR there?
 
 Ask him about queries

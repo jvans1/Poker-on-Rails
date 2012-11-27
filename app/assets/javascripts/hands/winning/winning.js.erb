@@ -1,9 +1,9 @@
 $(function () {
     var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
     var chart;
-    $("#tophands").ready(function(){
+    $("#tophands").exists(function(){
         var colors = Highcharts.getOptions().colors,
-            categories = ['AA', 'KK', 'AK', 'QQ', 'TT'],
+            categories = ['AA', 'KK', 'AK', 'QQ', 'JJ'],
             positions = ["0","1","2","3","4","5"]
             name = 'Hand Winnings',
             data = [{
@@ -68,7 +68,7 @@ $(function () {
                 type: 'column'
             },
             title: {
-                text: 'Winnings per hand'
+                text: 'Total Winnings'
             },
             subtitle: {
                 text: 'Click the columns to view winnings by position.'
