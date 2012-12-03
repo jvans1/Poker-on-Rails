@@ -24,7 +24,7 @@ class Handhistory < ActiveRecord::Base
   def self.percent_winning_hands_by_position
     winning_hands = {:sb=>0,:bb=>0,:utg => 0, :hj=> 0, :co=> 0, :btn=>0}
     hand_position_winnings = Handhistory.select("positiontype_id, sum(netamountwon) as winnings, holecardvalue_id").
-    group("positiontype_id, holecardvalue_id").where("holecardvalue_id<170")
+    group("positiontype_id, holecardvalue_id").where("holecardvalue_id<170 AND numberofplayers!=2")
     hand_position_winnings.each do |hpw|
       case hpw.positiontype_id
         when 0
@@ -95,7 +95,7 @@ class Handhistory < ActiveRecord::Base
 
   def self.biggest_losers(num)
     Handhistory.select("holecardvalue_id, sum(netamountwon) as winnings").group("holecardvalue_id").
-    sort{ |a, b| a.winnings.to_i<=> b.winnings.to_i}.
+    sort{ |a, b| a.winnings.to_i <=> b.winnings.to_i}.
     take(num).map do |h| 
       # holecard = h.hand.holecard_id
       h.winnings.to_i/100

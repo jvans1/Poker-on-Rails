@@ -1,5 +1,12 @@
 Challenges:
   -Putting multiple graphs in the same view
-    -change to require_tree . in  applications.js
-    - put file in folder javascripts/hands/losing/losing.js.erb
-    - add javascript_include_tag to view page
+    {-change to require_tree . in  applications.js
+        - put file in folder javascripts/hands/losing/losing.js.erb
+        - add javascript_include_tag to view page}
+    {-use the .exist javascript function to only run the JS for a graph if the current div is found
+      -in the lib file of this project
+    }
+  -Postgres Timeout 
+    Model.all => slow => timeout
+    find_each(:batch_size=> <number of rows>)
+  
