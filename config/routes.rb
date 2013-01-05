@@ -1,8 +1,9 @@
 Poker::Application.routes.draw do
   get 'positions' => "handhistories#positions"
   get 'hands/winnings' => "hands#winnings"
-  get 'hands/winningpercent'=> "hands#percent_winning"
+  get 'winningpercent'=> "hands#percent_winning"
   get 'hands/losing' => "hands#losing"
+  get "/frequency" => "hands#index"
   resources :handhistories
 
   resources :hands
@@ -56,7 +57,7 @@ Poker::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'hands#index'
+  root :to => 'hands#homepage'
 
   # See how all your routes lay out with "rake routes"
 

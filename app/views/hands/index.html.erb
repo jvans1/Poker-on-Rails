@@ -1,11 +1,16 @@
 <p id="notice"><%= notice %></p>
+<h1>Winning Frequency</h1>
 
 
-
-<%#= javascript_include_tag "hands/holecards/holecards.js.erb" %>
-<div id='holecards' style = "width:760px"></div>
-
-<%= image_tag('hands_days_months_years.png', :class => "span6") %>
+<div id='holecards' class="graph" style = "width:760px"></div>
+<div class="text">
+<h3>Do you always win at poker?</h3>
 
 
+<p class="main">This has to be one of the most frequently asked questions by people. The answer is absolutely not. This graph shows the percent of the time I win by hand, day, month and year. As you can see I don't win that many hands but over the course of a day I play a lot of hands and am much more likely to win on any given day than on any given hand. In a month I'm much more likely to win than on any specific day or hand and I've never had a losing year.</p>
 
+<p class="main">The lesson you can take from this is that over the long run it's much more likely that I end up a winner. Poker is a game based off statistics. On any given hand or day I might lose but if I play for long enough I usually end up winning.</p>
+
+<%= link_to "Winnings over time", "/handhistories"%>
+
+</div>

@@ -1,7 +1,18 @@
+<div id="tophands" class = "span8 graph"></div>
 
-<%#=javascript_include_tag "hands/winning/winning.js.erb"%>
-<div id="tophands" class = "span6"></div>
-<div style = "height: 200px" height:200px>
-<%= image_tag("topwinners1.png", :class =>"span5")%>
+
+
+
+<div class="text">
+<h3>Top winners</h3>
+
+
+<p class="main">These are the hands that I've won the most money with. The specific hands probably aren't that much of a surprise to you, however there is some interesting data in here.</p>
+
+<p class="main">Based on my explanation of the last page, what positions would you expect me to win the most money from with each of these hands?</p>
+
+<p class="main">Ok now click on one of the columns and see if you're right!</p>
+
+
+<div><p class="main">Now that's interesting. I just told you that position 5 is best position to be in and you saw from my earlier graph that it's where I win the most money. However with my best hands I'm clearly winning more money from the worst positions at the table. I'll get into exactly how this works at the end, for now head to the next graph and see my <%=link_to "Biggest losing hands", "/hands/losing"%> </p></div>
 </div>
-<%= image_tag("bigwinners2.png", :class=> "span5")%>

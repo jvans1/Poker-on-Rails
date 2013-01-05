@@ -53,7 +53,7 @@ class Handhistory < ActiveRecord::Base
     vpip.each do |hand|
         case hand.positiontype_id
         when 0 
-          positions[:small_blind] +=1 #Handhistory.where("positiontype_id = 0")
+          positions[:small_blind] +=1 
           positions[:sbvpip] +=1 if hand.didvpip
         when 1
           positions[:big_blind] +=1
@@ -77,7 +77,7 @@ class Handhistory < ActiveRecord::Base
 
 
   def self.winnings_by_position
-    positions = Handhistory.select("positiontype_id, sum(netamountwon) as winnings").group("positiontype_id")
+    positions = Handhistory.select("positiontype_id, sum(netamountwon) as winnings").group("positiontype_id").where("numberofplayers!=2")
     positions.sort_by! { |pos| pos.positiontype_id}
     positions.map { |p| p.winnings.to_i/100 }
   end

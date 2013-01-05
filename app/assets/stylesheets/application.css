@@ -11,3 +11,34 @@
  *= require_self
  *= require_tree .
  */
+
+
+.poker-pic{
+  margin-right: 25px;
+  float:left;
+}
+
+.graph{
+  float:left;
+  margin-right: 25px;
+}
+
+p.main{
+  font-size:16px;
+}
+.nav{
+  color:blue;
+}
+
+.poker{
+  background: url("/assets/6tabling.png");
+}
+
+.text{
+  background-color:white;
+  border-radius: 25px;
+}
+
+h1{
+  color: white;
+}

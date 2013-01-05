@@ -1,6 +1,9 @@
 class HandsController < ApplicationController
   # GET /hands
   # GET /hands.json
+  def homepage
+    
+  end
   def index
     @hands = Hand.all.select{ |h| h.holecard_id < 170}
 

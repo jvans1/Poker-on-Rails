@@ -1,3 +1,11 @@
 <h1> Losing</h1>
 <%#=javascript_include_tag "hands/losing/losing.js.erb" %>
-<div id = "losing" height:400px></div>
+<div id = "losing" height:400px class="span8 graph"></div>
+<div class="text">
+<h3>Top losers</h3>
+
+<p class="main">These are the hands I've lost the most with. If you click on the columns you can see their losing distribution by position. These hands are generally way too weak to ever play. Ideally I should only be losing money with these hands from the blinds(because I was forced to put money in and then I folded), but you can tell I've lost a little bit from other positions as well. I can't really justify ever playing these hands from some of the positions I've lost money from but nobody's perfect, we all do silly things sometimes :).</p>
+
+<%= link_to "Winning Percent", "/winningpercent"%>
+
+</div>

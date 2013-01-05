@@ -1,19 +1,19 @@
-<h1>Cash Game Winnings</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<%#= javascript_include_tag "handhistory/winnings/total_winnings.js.erb" %>
 
 <div id="dollars" class = "span6"></div>
 
-<%#= javascript_include_tag "handhistory/winnings/dollars.js.erb"%>
 
 <div id='winnings_day' class = "span6"></div>
 
 
-<%= image_tag("totalwinningsgraph.png")%>
+<div class="text">
+<h1>Cash Game Winnings</h1>
+<p class="main">Both graphs here show the same data in different form. The graph on the left shows my winnings in dollars and the graph on the right shows my winnings in big blinds.</p>
+
+<p class="main">For those of you unfamiliar with a big blind, it's basically a way to normalize data. Throughout my poker career I've played stakes where the big blind is $2 up to games where the big blind is $50. If I want to look at these games equally I need to look at big blinds. If I win $20 in the former game and $500 in the latter, they both count as winning 10 big blinds.</p>
+
+<p class="main">These graphs show that over the long run I win at poker. It may look like steady winnings but there are quite a few downswings in there including two that were ~$50k. The hardest thing to explain to people about poker is that you're <em>supposed</em> to lose sometimes. It's inevitable. But if you're a winner and keep playing you'll eventually start winning again.</p>
+
+<%= link_to "It's all about position", "/positions"%>
+
+</div>
