@@ -18,3 +18,8 @@
 //= require_tree .
 
 
+$(function(){
+  $(".highcharts-tracker").on("click", function(){
+    $(".dd-paragraph").show()
+  });
+});

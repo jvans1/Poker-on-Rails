@@ -1,11 +1,13 @@
-
+<h1>About Me</h1>
 <%=image_tag("poker.jpeg", :class=>"poker-pic graph")%>
 <div class="text">
-<h1>About Me</h1>
-<p class="main">My name is James Vanneman. I've made my living for the last 4.5 years playing poker. I played online under the screen name "jvans". In October of 2012 I began attending the <%= link_to "Flatiron School", "http://www.flatironschool.com"%> and learning how to code. During the semester I had the opportunity to combine two of my passions and create this website.</p>
 
-<p class="main">While I played poker for a living, I recorded all of my hands in a program called holdem manager. In addition to tracking my winnings and reviewing my sessions, holdem manager recorded all kinds of statistics about my play. The two forms of poker that professionals make their money from are "cash games" and "tournaments". The data that holdem manager recorded was from my cash games and is what I'm using the create the graphs you'll see on this site. For this project, I wrapped my holdem manager database around Active Record and created a rails app from it. I used highcharts to create some visuals of the statistics I have and used them to show some interesting facts about poker</p>
+<p class="main">My name is James Vanneman. In October of 2012 I began attending the <%= link_to "Flatiron School", "http://www.flatironschool.com"%> and learning how to code. Before the Flatiron School, I made my living playing online poker. One of my projects over the course of the semester allowed me to combine two of my passions and create this website</p>
+
+<p class="main">During my time as a professional, I played more than 2.1 million hands and logged all of them in a program called holdem manager. In addition to tracking my winnings and reviewing my sessions, holdem manager recorded all kinds of statistics about my play.</p>
+
+<p class="main">The two forms of poker that professionals make their money from are "cash games" and "tournaments". The data that holdem manager recorded was from my cash games and that's what I'm using to create the graphs you'll see on this site. For this project, I wrapped my holdem manager database around Active Record and created a rails app from it. I used highcharts to create some visuals of the statistics I have and use them to show some interesting facts about poker</p>
 
 <p class="main">I designed these statistics to be shown in a linear fashion so don't be tempted to skip around! I'll walk you through some poker best practices and give you an idea of some of the things that are important to being a winning poker player. If you have any questions of ideas of how I can improve the site feel free to email me</p>
-<%= link_to "Get Started", "/frequency"%> 
+<strong><%= link_to "Get Started", "/frequency"%></strong>
 </div>

@@ -30,9 +30,6 @@ p.main{
   color:blue;
 }
 
-.poker{
-  background: url("/assets/6tabling.png");
-}
 
 .text{
   background-color:white;
@@ -41,4 +38,7 @@ p.main{
 
 h1{
   color: white;
+}
+.dd-paragraph{
+  display:none;
 }
