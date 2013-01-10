@@ -41,4 +41,9 @@ h1{
 }
 .dd-paragraph{
   display:none;
+
+}
+
+.move-text{
+  font-size:35px;
 }
